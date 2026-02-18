@@ -3,27 +3,28 @@
 
 qobuz:
   email: "user@example.com"
-  password: "password"          # Or use QOBUZ_PASSWORD env var
-  max_quality: auto             # auto, 5=MP3, 6=CD, 7=Hi-Res 96k, 27=Hi-Res 192k
+  password: "password"            # Or use QOBUZ_PASSWORD env var
+  max_quality: auto               # auto, 5=MP3, 6=CD, 7=Hi-Res 96k, 27=Hi-Res 192k
 
 device:
-  name: "QobuzProxy"            # Name shown in Qobuz app
-  uuid: null                    # Auto-generated if not specified
+  name: "QobuzProxy"              # Name shown in Qobuz app
+  uuid: null                      # Auto-generated if not specified
 
 backend:
-  type: "dlna"                  # dlna or local
+  type: "dlna"                    # dlna or local
   dlna:
-    ip: "192.168.1.50"          # Required: DLNA device IP
-    port: 1400                  # DLNA device port
-    fixed_volume: false         # Ignore volume commands
-    proxy_port: 7120            # Audio proxy port for DLNA streaming
+    ip: "192.168.1.50"            # Required: DLNA device IP
+    port: 1400                    # DLNA device port
+    fixed_volume: false           # Ignore volume commands
+    proxy_port: 7120              # Audio proxy port for DLNA streaming
+    location: /upnp_descriptor_0  # Optional DLNA description uri
   # local:
-  #   device: "default"         # Audio device name or "default"
-  #   buffer_size: 2048         # Audio buffer size in frames
+  #   device: "default"           # Audio device name or "default"
+  #   buffer_size: 2048           # Audio buffer size in frames
 
 server:
-  http_port: 8689               # mDNS discovery HTTP server
-  bind_address: "0.0.0.0"       # Network interface to bind
+  http_port: 8689                 # mDNS discovery HTTP server
+  bind_address: "0.0.0.0"         # Network interface to bind
 
 logging:
-  level: "info"                 # debug, info, warning, error
+  level: "info"                   # debug, info, warning, error

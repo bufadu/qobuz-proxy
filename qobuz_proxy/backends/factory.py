@@ -74,6 +74,7 @@ class BackendFactory:
             return await cls.create_dlna(
                 ip=config.backend.dlna.ip,
                 port=config.backend.dlna.port or 1400,
+                location=config.backend.dlna.location or None,
             )
         elif backend_type == "local":
             return await cls.create_local(
@@ -89,6 +90,7 @@ class BackendFactory:
         cls,
         ip: str,
         port: int = 1400,
+        location: str = None,
         fixed_volume: bool = False,
         name: Optional[str] = None,
     ) -> AudioBackend:
@@ -110,6 +112,7 @@ class BackendFactory:
         backend = DLNABackend(
             ip=ip,
             port=port,
+            location=location,
             fixed_volume=fixed_volume,
             name=name,
         )

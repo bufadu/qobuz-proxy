@@ -61,7 +61,7 @@ class DLNAClient:
     - Retry logic for transient failures
     """
 
-    def __init__(self, ip: str, port: int = 1400):
+    def __init__(self, ip: str, port: int = 1400, location: str = None):
         """
         Initialize DLNA client.
 
@@ -71,6 +71,7 @@ class DLNAClient:
         """
         self.ip = ip
         self.port = port
+        self.location = location
         self.device_info: Optional[DLNADeviceInfo] = None
         self._session: Optional[aiohttp.ClientSession] = None
         self._last_volume_time_ms: float = 0
@@ -397,6 +398,9 @@ class DLNAClient:
             "/dmr/SamsungMRDesc.xml",  # Samsung
             "/rootDesc.xml",
         ]
+
+        if self.location:
+            paths.insert(0, self.location)
 
         xml_text = None
         base_url = None

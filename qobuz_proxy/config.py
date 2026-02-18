@@ -87,6 +87,7 @@ class DLNAConfig:
 
     ip: str = ""
     port: int = 1400
+    location: str = None
     fixed_volume: bool = False
     proxy_port: int = 7120
 
@@ -330,6 +331,7 @@ def dict_to_config(d: dict) -> Config:
             dlna = b["dlna"]
             config.backend.dlna.ip = dlna.get("ip", config.backend.dlna.ip)
             config.backend.dlna.port = dlna.get("port", config.backend.dlna.port)
+            config.backend.dlna.location = dlna.get("location", config.backend.dlna.location)
             config.backend.dlna.fixed_volume = dlna.get(
                 "fixed_volume", config.backend.dlna.fixed_volume
             )

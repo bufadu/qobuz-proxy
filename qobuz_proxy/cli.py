@@ -277,7 +277,7 @@ def log_config(config: Config) -> None:
     logger.info(f"Max quality: {config.qobuz.max_quality}")
 
 
-async def run_discovery(timeout: float, json_output: bool) -> int:
+async def run_discovery(timeout: float, json_output: bool, log_level: str = "info") -> int:
     """
     Run DLNA device discovery.
 
@@ -288,6 +288,8 @@ async def run_discovery(timeout: float, json_output: bool) -> int:
     Returns:
         Exit code
     """
+    setup_logging(log_level)
+
     from qobuz_proxy.backends.dlna.discovery import DLNADiscovery
 
     if not json_output:
@@ -332,6 +334,9 @@ async def run_discovery(timeout: float, json_output: bool) -> int:
                 print(f"    Model: {d.model_name}")
             if d.manufacturer:
                 print(f"    Manufacturer: {d.manufacturer}")
+            if d.location:
+                from urllib.parse import urlparse
+                print(f"    Location: {urlparse(d.location).path}")
             print()
 
         # Show config example using first device
@@ -435,7 +440,7 @@ def main() -> int:
     args = parse_args()
 
     if args.discover:
-        return asyncio.run(run_discovery(args.timeout, args.json_output))
+        return asyncio.run(run_discovery(args.timeout, args.json_output, args.log_level if args.log_level else "info"))
     elif args.list_audio_devices:
         return run_list_audio_devices()
     else:

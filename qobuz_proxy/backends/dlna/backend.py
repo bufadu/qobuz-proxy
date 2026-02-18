@@ -56,6 +56,7 @@ class DLNABackend(AudioBackend):
         self,
         ip: str,
         port: int = 1400,
+        location: str = None,
         fixed_volume: bool = False,
         name: Optional[str] = None,
     ):
@@ -71,6 +72,7 @@ class DLNABackend(AudioBackend):
         super().__init__(name or f"DLNA ({ip})")
         self._ip = ip
         self._port = port
+        self._location = location
         self._fixed_volume = fixed_volume
 
         self._client: Optional[DLNAClient] = None
@@ -110,7 +112,7 @@ class DLNABackend(AudioBackend):
     async def connect(self) -> bool:
         """Connect to DLNA device."""
         try:
-            self._client = DLNAClient(self._ip, self._port)
+            self._client = DLNAClient(self._ip, self._port, self._location)
             device_info = await self._client.connect()
 
             # Update name from device
